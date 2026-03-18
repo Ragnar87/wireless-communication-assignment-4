@@ -1,0 +1,106 @@
+[
+  {
+    "id": 0,
+    "room_label": "R\u00fam 1 - Lon 3",
+    "coordinates": [
+      79,
+      359
+    ]
+  },
+  {
+    "id": 1,
+    "room_label": "R\u00fam 2 - Lon 3",
+    "coordinates": [
+      97,
+      359
+    ]
+  },
+  {
+    "id": 2,
+    "room_label": "R\u00fam 3 - Lon 3",
+    "coordinates": [
+      112,
+      361
+    ]
+  },
+  {
+    "id": 3,
+    "room_label": "R\u00fam 4 - Lon 3",
+    "coordinates": [
+      94,
+      347
+    ]
+  },
+  {
+    "id": 4,
+    "room_label": "R\u00fam 5 - Lon 3",
+    "coordinates": [
+      84,
+      334
+    ]
+  },
+  {
+    "id": 5,
+    "room_label": "R\u00fam 6 - Lon 3",
+    "coordinates": [
+      107,
+      335
+    ]
+  },
+  {
+    "id": 6,
+    "room_label": "T\u00f3nleikur - Lon 3",
+    "coordinates": [
+      139,
+      340
+    ]
+  },
+  {
+    "id": 7,
+    "room_label": "Skrivistova 1 - Lon 3",
+    "coordinates": [
+      168,
+      336
+    ]
+  },
+  {
+    "id": 8,
+    "room_label": "Undirv\u00edsingarh\u00f8li 1 - Lon 3",
+    "coordinates": [
+      189,
+      341
+    ]
+  },
+  {
+    "id": 9,
+    "room_label": "Undirv\u00edsingarh\u00f8li 2 - Lon 3",
+    "coordinates": [
+      221,
+      341
+    ]
+  },
+  {
+    "id": 10,
+    "room_label": "R\u00fam 7 - Lon 3",
+    "coordinates": [
+      243,
+      348
+    ]
+  },
+  {
+    "id": 11,
+    "room_label": "Skrivistova 2 - Lon 3",
+    "coordinates": [
+      243,
+      334
+    ]
+  },
+  {
+    "id": 12,
+    "room_label": "Undirv\u00edsingarh\u00f8li 3 - Lon 3",
+    "coordinates": [
+      270,
+      341
+    ]
+  }
+]

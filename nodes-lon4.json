@@ -1,0 +1,58 @@
+[
+  {
+    "id": 0,
+    "room_label": "Undirv\u00edsingarh\u00f8li 1 - Lon 4",
+    "coordinates": [
+      86,
+      442
+    ]
+  },
+  {
+    "id": 1,
+    "room_label": "Undirv\u00edsingarh\u00f8li 2 - Lon 4",
+    "coordinates": [
+      117,
+      442
+    ]
+  },
+  {
+    "id": 2,
+    "room_label": "Undirv\u00edsingarh\u00f8li 3 - Lon 4",
+    "coordinates": [
+      145,
+      443
+    ]
+  },
+  {
+    "id": 3,
+    "room_label": "B\u00f3lkar\u00fam 1 - Lon 4",
+    "coordinates": [
+      168,
+      438
+    ]
+  },
+  {
+    "id": 4,
+    "room_label": "Undirv\u00edsingarh\u00f8li 4 - Lon 4",
+    "coordinates": [
+      208,
+      442
+    ]
+  },
+  {
+    "id": 5,
+    "room_label": "Undirv\u00edsingarh\u00f8li 5 - Lon 4",
+    "coordinates": [
+      273,
+      444
+    ]
+  },
+  {
+    "id": 6,
+    "room_label": "R\u00fam 1 - Lon 4",
+    "coordinates": [
+      181,
+      441
+    ]
+  }
+]

@@ -1,405 +1,272 @@
-import argparse
+from dataclasses import dataclass
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
-import math
 import numpy as np
+import networkx as nx
+import json
 
-# %% Section 1: Signal strength calculation functions
+from modules import rf_calc as rf
+from modules import path_tracing as pt
+from modules import vis_functions as vis
+from modules.models import Node
 
-def manhattan_distance_grid(Z, tx):
-    h, w = Z.shape
-    tx_x, tx_y = tx
+#Objectives
+# T1: Define node positions
+# 1. Identify all romms included in your floor plan.
+# 2. Pace one sensor node at the center of each room.
+# 3. Mark the fixed gateway position.
+# 3. PRovide a table of node IDs, room labels, and coordinates.
 
-    y, x = np.indices((h, w))  # coordinate grids
+# T2: Compute pairwise losses and required transmit powers
+# 1. Compute the pairwise path loss PL_ij between all node pairs using your model from Assignment 2.
+# 2. For each interference scenario, compute P_r,min using Eq. 4
+# 3. Compute the required transmit power Preq_t,ij for all canidate links using Eq. 5
+# 4. Mark links as infeasible if Prec_t, ij > pt,max
 
-    return np.abs(x - tx_x) + np.abs(y - tx_y)
+# T3: Compute energy per message
+# 1. Compute the packet duration.
+# 2. Convert the required transmit powers to linear units.
+# 3. Compute the message energy for each feasible link.
+# 4. Present the resulting link-energy matrix or edge list for at least one interference scenario.
 
-def euclidean_distance(shape, tx, cell_size=0.25):
-    h, w = shape
-    tx_x, tx_y = tx
+# T4: Build and visualize the weighted graph
+# 1. Construct the weighted connectivity graph for each interference scenario.
+# 2. Plot the floor plan with node positions and gateway overlaid.
+# 3. Draw the feasible links between nodes.
+# 4. Briefly comment on how the graph changes as the interference level increases.
 
-    x = np.arange(w)
-    y = np.arange(h)
+# T5: Determine minium-energy routes
+# 1. Determine a route from every sensor node to the gateway that minimizes the total network energy in Eq. 8.
+# 2. Identify which nodes act as relays in the resulting solution.
+# 3. Compute the total network energy, average hop count, and maximum hop count.
 
-    dx = x - tx_x
-    dy = y[:, None] - tx_y
+# T6: Compare interference scenarios
+# For each of the three interference scenarios, report:
+# - number of sensors connected directly to the gateway
+# - number of nodes acting as relays
+# - total network energy per message collection round
+# - average hop count
+# - maximum hop count
+# Briefly interpret the results. In particular, discuss wether:
+# - low interference leads to more direct or more star like communication
+# - high interference forces shorter links and more relaying
+# - the minimum-energy solution is always the minimum hop solution.
 
-    distance_cells = np.sqrt(dx**2 + dy**2)
+# T7 (optional): Comparison with unit hop count
+# As an optional extension, compare the energy-aware routing solution with a simpler graph where
+# every feasible link has unit cost 1. Discuss how the resulting topology differs from the energy-based
+# solution.
 
-    return distance_cells * cell_size
-
-def path_loss(distance, exponent_n, PL_d0):
-    distance = np.asarray(distance, dtype=float)
-
-    result = np.zeros_like(distance)
-
-    mask = distance > 0
-    result[mask] = PL_d0 + 10 * exponent_n * np.log10(distance[mask])
-
-    return result
-
-def other_losses(n_walls, n_windows, n_doors, p_wall, p_window, p_door):
-    return n_walls * p_wall + n_windows * p_window + n_doors * p_door
-
-def power_received(distance, n_walls, n_windows, n_doors, exponent_n, PL_d0, p_wall, p_window, p_door):
-    Pt = 0 #transmit power
-    Gt = 0 #transmit antenna gain
-    Gr = 0 #receive antenna gain
-    return Pt + Gt + Gr - path_loss(distance, exponent_n, PL_d0) - other_losses(n_walls, n_windows, n_doors, p_wall, p_window, p_door)
-
-def snr(p_r):
-    B = 1000000 #bandwidth in MHz
-    NF = 6 #Noise figure
-    N = -174 + 10 * math.log10(B) + NF
-    return p_r - N
-
-# %% Section 2: Path tracing and obstacle counting functions
-
-WALL = 1
-WINDOW = 2
-DOOR = 3
-
-def cells_on_line(tx, target):
-    """
-    Returns grid cells crossed by the line from tx to target.
-    tx and target are (x, y).
-    """
-    x0, y0 = tx
-    x1, y1 = target
-
-    x = x0 + 0.5
-    y = y0 + 0.5
-    end_x = x1 + 0.5
-    end_y = y1 + 0.5
-
-    dx = end_x - x
-    dy = end_y - y
-
-    step_x = 0 if dx == 0 else (1 if dx > 0 else -1)
-    step_y = 0 if dy == 0 else (1 if dy > 0 else -1)
-
-    if dx != 0:
-        t_delta_x = abs(1.0 / dx)
-        next_vert_grid = math.floor(x) + 1 if step_x > 0 else math.floor(x)
-        t_max_x = abs((next_vert_grid - x) / dx)
-    else:
-        t_delta_x = float("inf")
-        t_max_x = float("inf")
-
-    if dy != 0:
-        t_delta_y = abs(1.0 / dy)
-        next_horiz_grid = math.floor(y) + 1 if step_y > 0 else math.floor(y)
-        t_max_y = abs((next_horiz_grid - y) / dy)
-    else:
-        t_delta_y = float("inf")
-        t_max_y = float("inf")
-
-    cx, cy = x0, y0
-    cells = [(cx, cy)]
-
-    while (cx, cy) != (x1, y1):
-        if t_max_x < t_max_y:
-            cx += step_x
-            t_max_x += t_delta_x
-        elif t_max_y < t_max_x:
-            cy += step_y
-            t_max_y += t_delta_y
-        else:
-            cx += step_x
-            cy += step_y
-            t_max_x += t_delta_x
-            t_max_y += t_delta_y
-
-        cells.append((cx, cy))
-
-    return cells
+import numpy as np
+import matplotlib.pyplot as plt
+import matplotlib.image as mpimg
 
 
-def count_obstacles_to_point(grid, tx, target):
-    """
-    Count crossings into contiguous obstacle regions instead of counting every cell.
+def load_nodes(filename):
+    with open(filename, "r") as f:
+        data = json.load(f)
 
-    Returns:
-        (n_walls, n_windows, n_doors)
-    """
-    h, w = grid.shape
-    path = cells_on_line(tx, target)
+    nodes = []
 
-    n_walls = 0
-    n_windows = 0
-    n_doors = 0
+    for item in data:
+        nodes.append(
+            Node(
+                item["id"],
+                item["room_label"],
+                tuple(item["coordinates"])
+            )
+        )
 
-    prev_material = 0
-    same_material_count = 0
+    print(f"Loaded {len(nodes)} nodes from {filename}")
+    print_nodes_table(nodes)
+    return nodes
 
-    for x, y in path[1:]:  # skip tx cell
-        if not (0 <= x < w and 0 <= y < h):
+def print_nodes_table(nodes):
+    print("Nodes:")
+    for node in nodes:
+        print(f" {node.id} & {node.room_label} & {node.coordinates} \\\\")
+
+def build_graph_from_link_matrix(
+    nodes,
+    link_costs
+):
+    link_costs = np.asarray(link_costs, dtype=float)
+
+    n = len(nodes)
+    if link_costs.shape != (n, n):
+        raise ValueError(
+            f"link_costs must have shape ({n}, {n}), got {link_costs.shape}"
+        )
+
+    G = nx.Graph()
+
+    def node_key(i):
+        return nodes[i].id
+
+    # Add nodes
+    for i, node in enumerate(nodes):
+        G.add_node(
+            node_key(i),
+            object=node,
+            room_label=getattr(node, "room_label", None),
+            coordinates=getattr(node, "coordinates", None),
+        )
+
+    # Add edges
+    for i in range(n):
+        for j in range(i + 1, n):
+            c_ij = link_costs[i, j]
+            c_ji = link_costs[j, i]
+
+            if np.isnan(c_ij) and np.isnan(c_ji):
+                continue
+
+            # If both directions exist, use the average.
+            # If only one exists, use that one.
+            if not np.isnan(c_ij) and not np.isnan(c_ji):
+                cost = (c_ij + c_ji) / 2.0
+            elif not np.isnan(c_ij):
+                cost = c_ij
+            else:
+                cost = c_ji
+
+            G.add_edge(
+                node_key(i),
+                node_key(j),
+                weight=float(cost),
+                cost_mw=float(cost),
+            )
+
+    return G
+
+
+
+def shortest_path_energy(gateway_node_id, graph):
+    nodes = graph.nodes()
+    path_edges = set()
+    paths = []
+    for node in nodes:
+        if node == gateway_node_id:
             continue
+        path = nx.shortest_path(graph, source=node, target=gateway_node_id, weight="weight")
+        edges = set(zip(path[:-1], path[1:]))
+        edges2 = set(zip(path[1:], path[:-1]))
+        path_edges.update(edges)
+        path_edges.update(edges2)
+        paths.append(path)
 
-        material = grid[y, x]
+    all_edges = set(graph.edges())
+    edges_not_in_paths = all_edges - path_edges
+    graph.remove_edges_from(edges_not_in_paths)
+    return graph, paths
 
-        if(material > 0 and material == prev_material):
-            same_material_count += 1
-            #print(f"Same material {material} count: {same_material_count}")
-        else:
-            same_material_count = 0
-        if(material == 0):
-            same_material_count = 0
-        # Count only when entering a new obstacle region
-        if (same_material_count == 0 or same_material_count > 10):
-            if material == WALL:
-                n_walls += 1
-            elif material == WINDOW:
-                n_windows += 1
-            elif material == DOOR:
-                n_doors += 1
+def T1_create_and_print_nodes(grid):
+    #select_and_save_nodes(grid)
 
-        prev_material = material
-
-
-    return n_walls, n_windows, n_doors
-
-
-def count_obstacles_grid(grid, tx):
-    h, w = grid.shape
-
-    wall_counts = np.zeros((h, w), dtype=int)
-    window_counts = np.zeros((h, w), dtype=int)
-    door_counts = np.zeros((h, w), dtype=int)
-
-    for y in range(h):
-        for x in range(w):
-            n_walls, n_windows, n_doors = count_obstacles_to_point(grid, tx, (x, y))
-            wall_counts[y, x] = n_walls
-            window_counts[y, x] = n_windows
-            door_counts[y, x] = n_doors
-
-    return wall_counts, window_counts, door_counts
-
-# %% Section 3: Visualization functions
-
-def visualize_pr_heatmap_on_floorplan(
-    pr_map,
-    floorplan_path,
-    transmitter=None,
-    title="Power Received",
-    heatmap_alpha=0.55,
-    vmin=None,
-    vmax=None,
-    flip_floorplan=True,
-):
-    pr_map = np.asarray(pr_map, dtype=float)
-    h, w = pr_map.shape
-
-    floorplan = mpimg.imread(floorplan_path)
-    if flip_floorplan:
-        floorplan = np.flipud(floorplan)
-
-    fig, ax = plt.subplots(figsize=(8, 8))
-
-    # Floorplan
-    ax.imshow(
-        floorplan,
-        origin="lower",
-        extent=(0, w, 0, h)
+    nodes = load_nodes("nodes-all.json")
+    vis.show_points_on_floorplan(
+        "entire_floorplan.png", points=nodes, grid_shape=grid.shape, title="Node locations", show_labels=True, label_mode="id",gateway_id=0
     )
+    return nodes
 
-    # Heatmap
-    im = ax.imshow(
-        pr_map,
-        origin="lower",
-        extent=(0, w, 0, h),
-        cmap="inferno",
-        interpolation="nearest",
-        alpha=heatmap_alpha,
-        vmin=vmin,
-        vmax=vmax
-    )
+def T2_compute_pr_matrix(grid, nodes):
+    interferences = [0, 5, 10] #dBm
+    pr_matrix = rf.calculate_pl_matrix(grid, nodes, cell_size=0.25)
+    interference_pt_req = {}
+    for interference in interferences:
+        interference_pt_req[interference] = rf.calculate_pt_req_materix(pr_matrix, interference=interference)
+        interference_pt_req[interference][interference_pt_req[interference] > 10] = np.nan #mark infeasible links with NaN
+        print("number of infeasible links with interference ", interference, " dBm: ", np.sum(np.isnan(interference_pt_req[interference])))
+    return interference_pt_req
 
-    cbar = plt.colorbar(im, ax=ax)
-    cbar.set_label("Power received (dBm)")
+def T3_compute_energy_matrix(interference_pt_req):
+    packet_size_bytes = 25
+    bit_rate = 250 # bits per second
+    packet_duration = (packet_size_bytes * 8) / bit_rate # seconds
+    interference_energy_matrix = {}
+    for interference, pt_req_matrix in interference_pt_req.items():
+        pt_mW_matrix = rf.convert_pt_db_to_mw(pt_req_matrix)
+        interference_energy_matrix[interference] = rf.energy_per_meassage(pt_mW_matrix, packet_duration)
+    return interference_energy_matrix
 
-    # TX marker
-    if transmitter is not None:
-        tx_x, tx_y = transmitter
-        ax.scatter(tx_x, tx_y, s=200, marker="*", edgecolors="black", label="TX")
+def T4_build_and_visualize_graph(nodes, interference_energy_matrix, floorplan_path, grid_shape):
+    interferences_graphs = {}
+    for interference, energy_matrix in interference_energy_matrix.items():
+        G = build_graph_from_link_matrix(nodes, energy_matrix)
+        interferences_graphs[interference] = G
+        vis.visualize_graph_on_floorplan(
+            G,
+            floorplan_path,
+            grid_shape=grid_shape,
+            title=f"Connectivity graph with interference {interference} dB",
+            show_node_labels=True,
+            node_label_attr="id",
+            show_edge_labels=True,
+            edge_label_attr="cost_mw",
+            node_marker="*",
+            node_size=200,
+            edge_linewidth=1.5,
+        )
+        for node_id, attrs in G.nodes(data=True):
+            print(node_id, attrs["coordinates"])
+            break
+    path = nx.shortest_path(interferences_graphs[0], source=0, target=1, weight="weight")
+    print("Shortest path from node 0 to node 1 with interference 0 dBm: ", path)
+    return interferences_graphs
 
-    ax.set_title(title)
-    ax.set_xlabel("X")
-    ax.set_ylabel("Y")
-    ax.set_aspect("equal")
+def T5_compute_min_energy_routes(interference_graphs, grid_shape):
+    interference_paths = {}
+    for interference, graph in interference_graphs.items():
+        path_graph, paths = shortest_path_energy(gateway_node_id=0, graph=graph)
+        vis.visualize_graph_on_floorplan(
+            path_graph,
+            "entire_floorplan.png",
+            grid_shape=grid_shape,
+            title=f"Minimum-energy routes with interference {interference} dB",
+            show_node_labels=True,
+            node_label_attr="id",
+            show_edge_labels=True,
+            edge_label_attr="cost_mw",
+            node_marker="o",
+            node_size=100,
+            edge_linewidth=0.8,
+        )
+        interference_paths[interference] = path_graph, paths
+    return interference_paths
+    
+def calculate_statistics(interference_paths):
+    for interference, (graph, paths) in interference_paths.items():
+        num_direct = sum(1 for path in paths if len(path) == 2)
+        num_relays = set(node for path in paths if len(path) > 2 for node in path[1:-1])
+        total_energy = sum(sum(graph.edges[edge]["cost_mw"] for edge in zip(path[:-1], path[1:])) for path in paths)
+        hop_counts = [len(path) - 1 for path in paths]
+        avg_hop_count = np.mean(hop_counts)
+        max_hop_count = np.max(hop_counts)
 
-    if transmitter is not None:
-        ax.legend()
+        print(f"Interference {interference} dB:")
+        print(f"  Number of direct connections to gateway: {num_direct}")
+        print(f"  Number of nodes acting as relays: {len(num_relays)}")
+        print(f"  Total network energy per message collection round: {total_energy:.2f} mW")
+        print(f"  Average hop count: {avg_hop_count:.2f}")
+        print(f"  Maximum hop count: {max_hop_count}")
 
-    plt.tight_layout()
-    plt.show()
+def print_paths_with_costs(interference_paths):
+    for interference, (graph, paths) in interference_paths.items():
+        print(f"Interference {interference} dB:")
+        for path in paths:
+            path_cost = sum(graph.edges[edge]["cost_mw"] for edge in zip(path[:-1], path[1:]))
+            print(f"  Path: {path}, Cost: {path_cost:.2f} mW")
 
-def visualize_snr_contours_on_floorplan(
-    snr_map,
-    floorplan_path,
-    thresholds,
-    transmitter=None,
-    title="SNR Coverage Classes",
-    show_labels=True,
-    flip_floorplan=True,
-):
-    snr_map = np.asarray(snr_map, dtype=float)
-    thresholds = np.asarray(thresholds, dtype=float)
+def main():
+    grid = np.load("entire_floorplan_grid.npy")
 
-    if thresholds.ndim != 1 or thresholds.size != 2:
-        raise ValueError("thresholds must contain exactly 2 values to create 3 classes")
-
-    h, w = snr_map.shape
-
-    floorplan = mpimg.imread(floorplan_path)
-    if flip_floorplan:
-        floorplan = np.flipud(floorplan)
-
-    fig, ax = plt.subplots(figsize=(8, 8))
-
-    # Floorplan
-    ax.imshow(
-        floorplan,
-        origin="lower",
-        extent=(0, w, 0, h)
-    )
-
-    # Contours at cell centers
-    x = np.arange(w) + 0.5
-    y = np.arange(h) + 0.5
-    X, Y = np.meshgrid(x, y)
-
-    cs = ax.contour(
-        X, Y, snr_map,
-        levels=thresholds,
-        linewidths=2
-    )
-
-    if show_labels:
-        fmt = {t: f"{t:g} dB" for t in thresholds}
-        ax.clabel(cs, inline=True, fontsize=9, fmt=fmt)
-
-    # TX marker
-    if transmitter is not None:
-        tx_x, tx_y = transmitter
-        ax.scatter(tx_x + 0.5, tx_y + 0.5, s=200, marker="*", edgecolors="black", label="TX")
-
-    ax.set_title(title)
-    ax.set_xlabel("X")
-    ax.set_ylabel("Y")
-    ax.set_aspect("equal")
-
-    if transmitter is not None:
-        ax.legend()
-
-    plt.tight_layout()
-    plt.show()
-
-def select_tx_on_floorplan(
-    floorplan_path,
-    grid_shape,
-    title="Click transmitter location",
-    flip_floorplan=True,
-):
-    """
-    Show the floorplan and let the user click once to select TX.
-
-    Parameters
-    ----------
-    floorplan_path : str
-        Path to the floorplan image.
-    grid_shape : tuple[int, int]
-        Shape of the simulation grid: (height, width).
-    title : str
-        Window title.
-    flip_floorplan : bool
-        Flip vertically to match origin='lower'.
-
-    Returns
-    -------
-    tx : tuple[int, int]
-        Transmitter position as (x, y) grid cell coordinates.
-    """
-    h, w = grid_shape
-
-    floorplan = mpimg.imread(floorplan_path)
-    if flip_floorplan:
-        floorplan = np.flipud(floorplan)
-
-    fig, ax = plt.subplots(figsize=(8, 8))
-    ax.imshow(
-        floorplan,
-        origin="lower",
-        extent=(0, w, 0, h)
-    )
-
-    ax.set_title(title)
-    ax.set_xlabel("X")
-    ax.set_ylabel("Y")
-    ax.set_aspect("equal")
-
-    print("Click once to place the transmitter...")
-    pts = plt.ginput(1, timeout=0)
-    plt.close(fig)
-
-    if not pts:
-        raise ValueError("No transmitter point was selected.")
-
-    x, y = pts[0]
-
-    # Convert click position to grid cell
-    tx = (int(np.floor(x)), int(np.floor(y)))
-
-    print(f"Selected TX: {tx}")
-    return tx
-
-# %% Section 4: Main runner functions
-
-def calculate_pr(grid, tx, exponent_n, pl_d0, p_wall, p_window, p_door, cell_size):
-    grid = np.asarray(grid)
-
-    distance = euclidean_distance(grid.shape, tx, cell_size=cell_size)
-
-    wall_counts, window_counts, door_counts = count_obstacles_grid(grid, tx)
-
-    return power_received(distance, wall_counts, window_counts, door_counts, exponent_n, pl_d0, p_wall, p_window, p_door)
-
-def runner(floorplan, grid, cell_size, exponent_n, pl_d0, p_wall, p_window, p_door, thresholds):
-    grid = np.load(grid)
-    tx = select_tx_on_floorplan(floorplan, grid.shape)
-    pr_map = calculate_pr(grid, tx, exponent_n, pl_d0, p_wall, p_window, p_door, cell_size)
-    snr_map = snr(pr_map)
-
-
-    visualize_pr_heatmap_on_floorplan(
-        pr_map,
-        floorplan,
-        transmitter=tx,
-        title="Power received (dBm)",
-        vmin=-109,
-        vmax=-0
-    )
-
-    visualize_snr_contours_on_floorplan(
-        snr_map,
-        floorplan,
-        thresholds=thresholds,
-        transmitter=tx,
-        title="SNR class borders"
-    )
-
+    nodes = T1_create_and_print_nodes(grid)
+    interference_pt_req = T2_compute_pr_matrix(grid, nodes)
+    interference_energy_matrix = T3_compute_energy_matrix(interference_pt_req)
+    interference_graphs = T4_build_and_visualize_graph(nodes, interference_energy_matrix, "entire_floorplan.png", grid.shape)
+    interference_paths = T5_compute_min_energy_routes(interference_graphs, grid.shape)
+    calculate_statistics(interference_paths)
+    print_paths_with_costs(interference_paths)
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Visualize RF coverage heatmap on floorplan")
-    parser.add_argument("--floorplan", type=str, default="entire_floorplan.png", help="Path to floorplan image")
-    parser.add_argument("--grid", type=str, default="entire_floorplan_grid.npy", help="Path to floorplan grid numpy file")
-    parser.add_argument("--unit", type=float, default=0.25,help="Grid cell size in meters (e.g. 0.25 metres)")
-    parser.add_argument("--exponent_n", type=float, default=2.622, help="Path loss exponent (e.g. 2.5 for indoor)")
-    parser.add_argument("--pl_d0", type=float, default=34.93, help="Path loss at reference distance d0 (e.g. 34 dB at 1 m)")
-    parser.add_argument("--p_wall", type=float, default=19.54, help="Additional loss per wall (e.g. 20 dB)")
-    parser.add_argument("--p_window", type=float, default=15.64, help="Additional loss per window (e.g. 15 dB)")
-    parser.add_argument("--p_door", type=float, default=1, help="Additional loss per door (e.g. 5 dB)")
-    parser.add_argument("--thresholds", type=float, nargs=2, default=[0, 7], help="SNR thresholds for class borders (e.g. 0, 7 dB)")
-    args = parser.parse_args()
-    runner(args.floorplan, args.grid, args.unit, args.exponent_n, args.pl_d0, args.p_wall, args.p_window, args.p_door, args.thresholds)
+    main()

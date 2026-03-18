@@ -1,0 +1,34 @@
+[
+  {
+    "id": 0,
+    "room_label": "Skrivistova 1",
+    "coordinates": [
+      324,
+      463
+    ]
+  },
+  {
+    "id": 1,
+    "room_label": "Skrivistova 2",
+    "coordinates": [
+      324,
+      449
+    ]
+  },
+  {
+    "id": 2,
+    "room_label": "Skrivistova 3",
+    "coordinates": [
+      324,
+      434
+    ]
+  },
+  {
+    "id": 3,
+    "room_label": "Skrivistova 4",
+    "coordinates": [
+      324,
+      416
+    ]
+  }
+]

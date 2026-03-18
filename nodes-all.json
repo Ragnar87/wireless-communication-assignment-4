@@ -1,0 +1,698 @@
+[
+  {
+    "id": 0,
+    "room_label": "Gateway",
+    "coordinates": [
+      309,
+      279
+    ]
+  },
+    {
+    "id": 1,
+    "room_label": "Skrivistova 1",
+    "coordinates": [
+      324,
+      463
+    ]
+  },
+  {
+    "id": 2,
+    "room_label": "Skrivistova 2",
+    "coordinates": [
+      324,
+      449
+    ]
+  },
+  {
+    "id": 3,
+    "room_label": "Skrivistova 3",
+    "coordinates": [
+      324,
+      434
+    ]
+  },
+  {
+    "id": 4,
+    "room_label": "Skrivistova 4",
+    "coordinates": [
+      324,
+      416
+    ]
+  },
+  {
+    "id": 5,
+    "room_label": "R\u00fam 1 - Lon 1",
+    "coordinates": [
+      80,
+      137
+    ]
+  },
+  {
+    "id": 6,
+    "room_label": "R\u00fam 2 - Lon 1",
+    "coordinates": [
+      93,
+      137
+    ]
+  },
+  {
+    "id": 7,
+    "room_label": "R\u00fam 3 - Lon 1",
+    "coordinates": [
+      101,
+      137
+    ]
+  },
+  {
+    "id": 8,
+    "room_label": "R\u00fam 4 - Lon 1",
+    "coordinates": [
+      112,
+      136
+    ]
+  },
+  {
+    "id": 9,
+    "room_label": "R\u00fam 5 - Lon 1",
+    "coordinates": [
+      126,
+      136
+    ]
+  },
+  {
+    "id": 10,
+    "room_label": "R\u00fam 6 - Lon 1",
+    "coordinates": [
+      143,
+      137
+    ]
+  },
+  {
+    "id": 11,
+    "room_label": "R\u00fam 7 - Lon 1",
+    "coordinates": [
+      155,
+      137
+    ]
+  },
+  {
+    "id": 12,
+    "room_label": "R\u00fam 8 - Lon 1",
+    "coordinates": [
+      166,
+      136
+    ]
+  },
+  {
+    "id": 13,
+    "room_label": "R\u00fam 9 - Lon 1",
+    "coordinates": [
+      179,
+      136
+    ]
+  },
+  {
+    "id": 14,
+    "room_label": "R\u00fam 10 - Lon 1",
+    "coordinates": [
+      197,
+      136
+    ]
+  },
+  {
+    "id": 15,
+    "room_label": "R\u00fam 11 - Lon 1",
+    "coordinates": [
+      217,
+      137
+    ]
+  },
+  {
+    "id": 16,
+    "room_label": "R\u00fam 12 - Lon 1",
+    "coordinates": [
+      77,
+      114
+    ]
+  },
+  {
+    "id": 17,
+    "room_label": "R\u00fam 13 - Lon 1",
+    "coordinates": [
+      108,
+      114
+    ]
+  },
+  {
+    "id": 18,
+    "room_label": "Skrivistova 1 - Lon 1",
+    "coordinates": [
+      125,
+      117
+    ]
+  },
+  {
+    "id": 19,
+    "room_label": "R\u00fam 14 - Lon 1",
+    "coordinates": [
+      141,
+      113
+    ]
+  },
+  {
+    "id": 20,
+    "room_label": "Skrivistova 2 - Lon 1",
+    "coordinates": [
+      171,
+      119
+    ]
+  },
+  {
+    "id": 21,
+    "room_label": "R\u00fam 15 - Lon 1",
+    "coordinates": [
+      194,
+      115
+    ]
+  },
+  {
+    "id": 22,
+    "room_label": "Skrivistova 3 - Lon 1",
+    "coordinates": [
+      219,
+      118
+    ]
+  },
+  {
+    "id": 23,
+    "room_label": "Skrivistova 4 - Lon 1",
+    "coordinates": [
+      255,
+      136
+    ]
+  },
+  {
+    "id": 24,
+    "room_label": "Aula - Lon 1",
+    "coordinates": [
+      271,
+      76
+    ]
+  },
+  {
+    "id": 25,
+    "room_label": "R\u00fam 1 - Lon 2",
+    "coordinates": [
+      84,
+      248
+    ]
+  },
+  {
+    "id": 26,
+    "room_label": "R\u00fam 2 - Lon 2",
+    "coordinates": [
+      84,
+      223
+    ]
+  },
+  {
+    "id": 27,
+    "room_label": "Evning - Lon 2",
+    "coordinates": [
+      117,
+      233
+    ]
+  },
+  {
+    "id": 28,
+    "room_label": "R\u00fam 3 - Lon 2",
+    "coordinates": [
+      145,
+      229
+    ]
+  },
+  {
+    "id": 29,
+    "room_label": "Undirv\u00edsingarh\u00f8li 4 - Lon 2",
+    "coordinates": [
+      167,
+      228
+    ]
+  },
+  {
+    "id": 30,
+    "room_label": "R\u00fam 4 - Lon 2",
+    "coordinates": [
+      195,
+      235
+    ]
+  },
+  {
+    "id": 31,
+    "room_label": "R\u00fam 5 - Lon 2",
+    "coordinates": [
+      194,
+      220
+    ]
+  },
+  {
+    "id": 32,
+    "room_label": "Undirv\u00edsingarh\u00f8li 5 - Lon 2",
+    "coordinates": [
+      223,
+      228
+    ]
+  },
+  {
+    "id": 33,
+    "room_label": "Undirv\u00edsingarh\u00f8li 6 - Lon 2",
+    "coordinates": [
+      263,
+      229
+    ]
+  },
+  {
+    "id": 34,
+    "room_label": "R\u00fam 1 - Lon 3",
+    "coordinates": [
+      79,
+      359
+    ]
+  },
+  {
+    "id": 35,
+    "room_label": "R\u00fam 2 - Lon 3",
+    "coordinates": [
+      97,
+      359
+    ]
+  },
+  {
+    "id": 36,
+    "room_label": "R\u00fam 3 - Lon 3",
+    "coordinates": [
+      112,
+      361
+    ]
+  },
+  {
+    "id": 37,
+    "room_label": "R\u00fam 4 - Lon 3",
+    "coordinates": [
+      94,
+      347
+    ]
+  },
+  {
+    "id": 38,
+    "room_label": "R\u00fam 5 - Lon 3",
+    "coordinates": [
+      84,
+      334
+    ]
+  },
+  {
+    "id": 39,
+    "room_label": "R\u00fam 6 - Lon 3",
+    "coordinates": [
+      107,
+      335
+    ]
+  },
+  {
+    "id": 40,
+    "room_label": "T\u00f3nleikur - Lon 3",
+    "coordinates": [
+      145,
+      340
+    ]
+  },
+  {
+    "id": 41,
+    "room_label": "Skrivistova 1 - Lon 3",
+    "coordinates": [
+      168,
+      336
+    ]
+  },
+  {
+    "id": 42,
+    "room_label": "Undirv\u00edsingarh\u00f8li 1 - Lon 3",
+    "coordinates": [
+      189,
+      341
+    ]
+  },
+  {
+    "id": 43,
+    "room_label": "Undirv\u00edsingarh\u00f8li 2 - Lon 3",
+    "coordinates": [
+      221,
+      341
+    ]
+  },
+  {
+    "id": 44,
+    "room_label": "R\u00fam 7 - Lon 3",
+    "coordinates": [
+      243,
+      348
+    ]
+  },
+  {
+    "id": 45,
+    "room_label": "Skrivistova 2 - Lon 3",
+    "coordinates": [
+      243,
+      334
+    ]
+  },
+  {
+    "id": 46,
+    "room_label": "Undirv\u00edsingarh\u00f8li 3 - Lon 3",
+    "coordinates": [
+      270,
+      341
+    ]
+  },
+  {
+    "id": 47,
+    "room_label": "Undirv\u00edsingarh\u00f8li 1 - Lon 4",
+    "coordinates": [
+      86,
+      442
+    ]
+  },
+  {
+    "id": 48,
+    "room_label": "Undirv\u00edsingarh\u00f8li 2 - Lon 4",
+    "coordinates": [
+      117,
+      442
+    ]
+  },
+  {
+    "id": 49,
+    "room_label": "Undirv\u00edsingarh\u00f8li 3 - Lon 4",
+    "coordinates": [
+      145,
+      443
+    ]
+  },
+  {
+    "id": 50,
+    "room_label": "B\u00f3lkar\u00fam 1 - Lon 4",
+    "coordinates": [
+      168,
+      438
+    ]
+  },
+  {
+    "id": 51,
+    "room_label": "Undirv\u00edsingarh\u00f8li 4 - Lon 4",
+    "coordinates": [
+      208,
+      442
+    ]
+  },
+  {
+    "id": 52,
+    "room_label": "Undirv\u00edsingarh\u00f8li 5 - Lon 4",
+    "coordinates": [
+      273,
+      444
+    ]
+  },
+  {
+    "id": 53,
+    "room_label": "R\u00fam 1 - Lon 4",
+    "coordinates": [
+      181,
+      441
+    ]
+  },
+  {
+    "id": 54,
+    "room_label": "B\u00f3lkar\u00fam 1 - Lon 5",
+    "coordinates": [
+      340,
+      157
+    ]
+  },
+  {
+    "id": 55,
+    "room_label": "B\u00f3lkar\u00fam 2 - Lon 5",
+    "coordinates": [
+      357,
+      153
+    ]
+  },
+  {
+    "id": 56,
+    "room_label": "R\u00fam 1 - Lon 5",
+    "coordinates": [
+      372,
+      161
+    ]
+  },
+  {
+    "id": 57,
+    "room_label": "R\u00fam 2 - Lon 5",
+    "coordinates": [
+      387,
+      159
+    ]
+  },
+  {
+    "id": 58,
+    "room_label": "Undirv\u00edsingarh\u00f8li 1 - Lon 5",
+    "coordinates": [
+      407,
+      160
+    ]
+  },
+  {
+    "id": 59,
+    "room_label": "Undirv\u00edsingarh\u00f8li 2 - Lon 5",
+    "coordinates": [
+      440,
+      160
+    ]
+  },
+  {
+    "id": 60,
+    "room_label": "Undirv\u00edsingarh\u00f8li 3 - Lon 5",
+    "coordinates": [
+      472,
+      160
+    ]
+  },
+  {
+    "id": 61,
+    "room_label": "R\u00fam 1 - Lon 6",
+    "coordinates": [
+      339,
+      281
+    ]
+  },
+  {
+    "id": 62,
+    "room_label": "R\u00fam 2 - Lon 6",
+    "coordinates": [
+      341,
+      260
+    ]
+  },
+  {
+    "id": 63,
+    "room_label": "R\u00fam 3 - Lon 6",
+    "coordinates": [
+      362,
+      272
+    ]
+  },
+  {
+    "id": 64,
+    "room_label": "Undirv\u00edsingarh\u00f8li 1 - Lon 6",
+    "coordinates": [
+      392,
+      274
+    ]
+  },
+  {
+    "id": 65,
+    "room_label": "Undirv\u00edsingarh\u00f8li 2 - Lon 6",
+    "coordinates": [
+      419,
+      273
+    ]
+  },
+  {
+    "id": 66,
+    "room_label": "Undirv\u00edsingarh\u00f8li 3 - Lon 6",
+    "coordinates": [
+      448,
+      273
+    ]
+  },
+  {
+    "id": 67,
+    "room_label": "Undirv\u00edsingarh\u00f8li 4 - Lon 6",
+    "coordinates": [
+      477,
+      272
+    ]
+  },
+  {
+    "id": 68,
+    "room_label": "Undirv\u00edsingarh\u00f8li 1 - Lon 7",
+    "coordinates": [
+      348,
+      386
+    ]
+  },
+  {
+    "id": 69,
+    "room_label": "R\u00fam 1",
+    "coordinates": [
+      370,
+      384
+    ]
+  },
+  {
+    "id": 70,
+    "room_label": "Undirv\u00edsingarh\u00f8li 2 - Lon 7",
+    "coordinates": [
+      391,
+      385
+    ]
+  },
+  {
+    "id": 71,
+    "room_label": "Undirv\u00edsingarh\u00f8li 3 - Lon 7",
+    "coordinates": [
+      420,
+      385
+    ]
+  },
+  {
+    "id": 72,
+    "room_label": "Undirv\u00edsingarh\u00f8li 4 - Lon 7",
+    "coordinates": [
+      448,
+      383
+    ]
+  },
+  {
+    "id": 73,
+    "room_label": "Undirv\u00edsingarh\u00f8li 5 - Lon 7",
+    "coordinates": [
+      482,
+      384
+    ]
+  },
+  {
+    "id": 74,
+    "room_label": "R\u00fam 2 - Lon 7",
+    "coordinates": [
+      447,
+      449
+    ]
+  },
+  {
+    "id": 75,
+    "room_label": "R\u00fam 3 - Lon 7",
+    "coordinates": [
+      462,
+      454
+    ]
+  },
+  {
+    "id": 76,
+    "room_label": "R\u00fam 4 - Lon 7",
+    "coordinates": [
+      476,
+      453
+    ]
+  },
+  {
+    "id": 77,
+    "room_label": "R\u00fam 5 - Lon 7",
+    "coordinates": [
+      490,
+      453
+    ]
+  },
+  {
+    "id": 78,
+    "room_label": "R\u00fam 6 - Lon 7",
+    "coordinates": [
+      507,
+      453
+    ]
+  },
+  {
+    "id": 79,
+    "room_label": "Fimleikah\u00f8ll - Lon 7",
+    "coordinates": [
+      557,
+      447
+    ]
+  },
+  {
+    "id": 80,
+    "room_label": "Gongd - Lon 1",
+    "coordinates": [
+      308,
+      134
+    ]
+  },
+  {
+    "id": 81,
+    "room_label": "Gongd - Lon 2",
+    "coordinates": [
+      216,
+      250
+    ]
+  },
+  {
+    "id": 82,
+    "room_label": "Gongd - Lon 3",
+    "coordinates": [
+      209,
+      363
+    ]
+  },
+  {
+    "id": 83,
+    "room_label": "Gongd - Lon 4",
+    "coordinates": [
+      229,
+      464
+    ]
+  },
+  {
+    "id": 84,
+    "room_label": "Gongd - Lon 5",
+    "coordinates": [
+      393,
+      183
+    ]
+  },
+  {
+    "id": 85,
+    "room_label": "Gongd - Lon 6",
+    "coordinates": [
+      392,
+      295
+    ]
+  },
+  {
+    "id": 86,
+    "room_label": "Gongd - Lon 7",
+    "coordinates": [
+      446,
+      408
+    ]
+  }
+]

@@ -1,0 +1,58 @@
+[
+  {
+    "id": 0,
+    "room_label": "B\u00f3lkar\u00fam 1 - Lon 5",
+    "coordinates": [
+      340,
+      157
+    ]
+  },
+  {
+    "id": 1,
+    "room_label": "B\u00f3lkar\u00fam 2 - Lon 5",
+    "coordinates": [
+      357,
+      153
+    ]
+  },
+  {
+    "id": 2,
+    "room_label": "R\u00fam 1 - Lon 5",
+    "coordinates": [
+      372,
+      161
+    ]
+  },
+  {
+    "id": 3,
+    "room_label": "R\u00fam 2 - Lon 5",
+    "coordinates": [
+      387,
+      159
+    ]
+  },
+  {
+    "id": 4,
+    "room_label": "Undirv\u00edsingarh\u00f8li 1 - Lon 5",
+    "coordinates": [
+      407,
+      160
+    ]
+  },
+  {
+    "id": 5,
+    "room_label": "Undirv\u00edsingarh\u00f8li 2 - Lon 5",
+    "coordinates": [
+      440,
+      160
+    ]
+  },
+  {
+    "id": 6,
+    "room_label": "Undirv\u00edsingarh\u00f8li 3 - Lon 5",
+    "coordinates": [
+      472,
+      160
+    ]
+  }
+]

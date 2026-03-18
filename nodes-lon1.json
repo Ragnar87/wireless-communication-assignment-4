@@ -1,0 +1,162 @@
+[
+  {
+    "id": 0,
+    "room_label": "R\u00fam 1 - Lon 1",
+    "coordinates": [
+      80,
+      137
+    ]
+  },
+  {
+    "id": 1,
+    "room_label": "R\u00fam 2 - Lon 1",
+    "coordinates": [
+      93,
+      137
+    ]
+  },
+  {
+    "id": 2,
+    "room_label": "R\u00fam 3 - Lon 1",
+    "coordinates": [
+      101,
+      137
+    ]
+  },
+  {
+    "id": 3,
+    "room_label": "R\u00fam 4 - Lon 1",
+    "coordinates": [
+      112,
+      136
+    ]
+  },
+  {
+    "id": 4,
+    "room_label": "R\u00fam 5 - Lon 1",
+    "coordinates": [
+      126,
+      136
+    ]
+  },
+  {
+    "id": 5,
+    "room_label": "R\u00fam 6 - Lon 1",
+    "coordinates": [
+      143,
+      137
+    ]
+  },
+  {
+    "id": 6,
+    "room_label": "R\u00fam 7 - Lon 1",
+    "coordinates": [
+      155,
+      137
+    ]
+  },
+  {
+    "id": 7,
+    "room_label": "R\u00fam 8 - Lon 1",
+    "coordinates": [
+      166,
+      136
+    ]
+  },
+  {
+    "id": 8,
+    "room_label": "R\u00fam 9 - Lon 1",
+    "coordinates": [
+      179,
+      136
+    ]
+  },
+  {
+    "id": 9,
+    "room_label": "R\u00fam 10 - Lon 1",
+    "coordinates": [
+      197,
+      136
+    ]
+  },
+  {
+    "id": 10,
+    "room_label": "R\u00fam 11 - Lon 1",
+    "coordinates": [
+      217,
+      137
+    ]
+  },
+  {
+    "id": 11,
+    "room_label": "R\u00fam 12 - Lon 1",
+    "coordinates": [
+      77,
+      114
+    ]
+  },
+  {
+    "id": 12,
+    "room_label": "R\u00fam 13 - Lon 1",
+    "coordinates": [
+      108,
+      114
+    ]
+  },
+  {
+    "id": 13,
+    "room_label": "Skrivistova 1 - Lon 1",
+    "coordinates": [
+      125,
+      117
+    ]
+  },
+  {
+    "id": 14,
+    "room_label": "R\u00fam 14 - Lon 1",
+    "coordinates": [
+      141,
+      113
+    ]
+  },
+  {
+    "id": 15,
+    "room_label": "Skrivistova 2 - Lon 1",
+    "coordinates": [
+      171,
+      119
+    ]
+  },
+  {
+    "id": 16,
+    "room_label": "R\u00fam 15 - Lon 1",
+    "coordinates": [
+      194,
+      115
+    ]
+  },
+  {
+    "id": 17,
+    "room_label": "Skrivistova 3 - Lon 1",
+    "coordinates": [
+      219,
+      118
+    ]
+  },
+  {
+    "id": 18,
+    "room_label": "Skrivistova 4 - Lon 1",
+    "coordinates": [
+      255,
+      136
+    ]
+  },
+  {
+    "id": 19,
+    "room_label": "Aula - Lon 1",
+    "coordinates": [
+      271,
+      76
+    ]
+  }
+]

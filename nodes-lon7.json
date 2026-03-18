@@ -1,0 +1,98 @@
+[
+  {
+    "id": 0,
+    "room_label": "Undirv\u00edsingarh\u00f8li 1 - Lon 7",
+    "coordinates": [
+      348,
+      386
+    ]
+  },
+  {
+    "id": 1,
+    "room_label": "R\u00fam 1",
+    "coordinates": [
+      370,
+      384
+    ]
+  },
+  {
+    "id": 2,
+    "room_label": "Undirv\u00edsingarh\u00f8li 2 - Lon 7",
+    "coordinates": [
+      391,
+      385
+    ]
+  },
+  {
+    "id": 3,
+    "room_label": "Undirv\u00edsingarh\u00f8li 3 - Lon 7",
+    "coordinates": [
+      420,
+      385
+    ]
+  },
+  {
+    "id": 4,
+    "room_label": "Undirv\u00edsingarh\u00f8li 4 - Lon 7",
+    "coordinates": [
+      448,
+      383
+    ]
+  },
+  {
+    "id": 5,
+    "room_label": "Undirv\u00edsingarh\u00f8li 5 - Lon 7",
+    "coordinates": [
+      482,
+      384
+    ]
+  },
+  {
+    "id": 6,
+    "room_label": "R\u00fam 2 - Lon 7",
+    "coordinates": [
+      447,
+      449
+    ]
+  },
+  {
+    "id": 7,
+    "room_label": "R\u00fam 3 - Lon 7",
+    "coordinates": [
+      462,
+      454
+    ]
+  },
+  {
+    "id": 8,
+    "room_label": "R\u00fam 4 - Lon 7",
+    "coordinates": [
+      476,
+      453
+    ]
+  },
+  {
+    "id": 9,
+    "room_label": "R\u00fam 5 - Lon 7",
+    "coordinates": [
+      490,
+      453
+    ]
+  },
+  {
+    "id": 10,
+    "room_label": "R\u00fam 6 - Lon 7",
+    "coordinates": [
+      507,
+      453
+    ]
+  },
+  {
+    "id": 11,
+    "room_label": "Fimleikah\u00f8ll - Lon 7",
+    "coordinates": [
+      557,
+      447
+    ]
+  }
+]

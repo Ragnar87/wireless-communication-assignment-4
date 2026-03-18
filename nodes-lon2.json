@@ -1,0 +1,74 @@
+[
+  {
+    "id": 0,
+    "room_label": "R\u00fam 1 - Lon 2",
+    "coordinates": [
+      84,
+      248
+    ]
+  },
+  {
+    "id": 1,
+    "room_label": "R\u00fam 2 - Lon 2",
+    "coordinates": [
+      84,
+      223
+    ]
+  },
+  {
+    "id": 2,
+    "room_label": "Evning - Lon 2",
+    "coordinates": [
+      117,
+      233
+    ]
+  },
+  {
+    "id": 3,
+    "room_label": "R\u00fam 3 - Lon 2",
+    "coordinates": [
+      145,
+      229
+    ]
+  },
+  {
+    "id": 4,
+    "room_label": "Undirv\u00edsingarh\u00f8li 4 - Lon 2",
+    "coordinates": [
+      167,
+      228
+    ]
+  },
+  {
+    "id": 5,
+    "room_label": "R\u00fam 4 - Lon 2",
+    "coordinates": [
+      195,
+      235
+    ]
+  },
+  {
+    "id": 6,
+    "room_label": "R\u00fam 5 - Lon 2",
+    "coordinates": [
+      194,
+      220
+    ]
+  },
+  {
+    "id": 7,
+    "room_label": "Undirv\u00edsingarh\u00f8li 5 - Lon 2",
+    "coordinates": [
+      223,
+      228
+    ]
+  },
+  {
+    "id": 8,
+    "room_label": "Undirv\u00edsingarh\u00f8li 6 - Lon 2",
+    "coordinates": [
+      263,
+      229
+    ]
+  }
+]

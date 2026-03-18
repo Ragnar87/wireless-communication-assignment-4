@@ -84,15 +84,7 @@ def count_obstacles_to_point(grid, tx, target):
 
         material = grid[y, x]
 
-        if(material > 0 and material == prev_material):
-            same_material_count += 1
-            #print(f"Same material {material} count: {same_material_count}")
-        else:
-            same_material_count = 0
-        if(material == 0):
-            same_material_count = 0
-        # Count only when entering a new obstacle region
-        if (same_material_count == 0 or same_material_count > 10):
+        if material != prev_material:
             if material == WALL:
                 n_walls += 1
             elif material == WINDOW:
@@ -101,7 +93,6 @@ def count_obstacles_to_point(grid, tx, target):
                 n_doors += 1
 
         prev_material = material
-
 
     return n_walls, n_windows, n_doors
 

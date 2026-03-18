@@ -1,0 +1,58 @@
+[
+  {
+    "id": 0,
+    "room_label": "Gongd - Lon 1",
+    "coordinates": [
+      308,
+      134
+    ]
+  },
+  {
+    "id": 1,
+    "room_label": "Gongd - Lon 2",
+    "coordinates": [
+      216,
+      250
+    ]
+  },
+  {
+    "id": 2,
+    "room_label": "Gongd - Lon 3",
+    "coordinates": [
+      209,
+      363
+    ]
+  },
+  {
+    "id": 3,
+    "room_label": "Gongd - Lon 4",
+    "coordinates": [
+      229,
+      464
+    ]
+  },
+  {
+    "id": 4,
+    "room_label": "Gongd - Lon 5",
+    "coordinates": [
+      393,
+      183
+    ]
+  },
+  {
+    "id": 5,
+    "room_label": "Gongd - Lon 6",
+    "coordinates": [
+      392,
+      295
+    ]
+  },
+  {
+    "id": 6,
+    "room_label": "Gongd - Lon 7",
+    "coordinates": [
+      446,
+      408
+    ]
+  }
+]
